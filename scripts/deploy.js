@@ -9,9 +9,9 @@ async function main() {
 
   // storage: upgradeProxy
   const proxyContractFactory = await hre.ethers.getContractFactory("UpgradeProxy");
-  const proxyContract = await proxyContractFactory.deploy(bankV1Addr);
-  await proxyContract.waitForDeployment();
-  const proxyAddr = await proxyContract.getAddress();
+  const proxy = await proxyContractFactory.deploy(bankV1Addr);
+  await proxy.waitForDeployment();
+  const proxyAddr = await proxy.getAddress();
   console.log("Proxy:", proxyAddr);
 
   // call setName via Proxy
@@ -31,8 +31,8 @@ async function main() {
   console.log("Tx Hash:", tx.hash);
 
   // getname
-  console.log(`calldate of setName: ${abiEncodedCall}`)
-  // console.log('proxy.name: ', await proxyContract.callStatic.name());
+  // console.log('bankV1.name: ', await bankV1.name());
+  // console.log('proxy.name: ', await proxy.callStatic.name());
 };
 
 main().catch((error) => {
